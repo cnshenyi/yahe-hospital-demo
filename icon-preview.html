@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>i五院 图标方案预览</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+  background: #f0f2f5; 
+  padding: 40px 20px;
+  color: #1a1a1a;
+}
+h1 { text-align: center; font-size: 28px; margin-bottom: 8px; font-weight: 700; }
+.subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 48px; }
+
+.scheme { 
+  max-width: 600px; 
+  margin: 0 auto 60px; 
+  background: white; 
+  border-radius: 20px; 
+  padding: 36px 32px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+}
+.scheme-title { 
+  font-size: 20px; 
+  font-weight: 700; 
+  margin-bottom: 6px;
+}
+.scheme-desc { 
+  font-size: 13px; 
+  color: #888; 
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+.icon-row { 
+  display: flex; 
+  justify-content: space-between; 
+  gap: 12px;
+}
+.icon-item { 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  gap: 10px;
+  flex: 1;
+}
+.icon-box { 
+  width: 56px; 
+  height: 56px; 
+  border-radius: 16px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.icon-label { 
+  font-size: 12px; 
+  color: #555; 
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* === SCHEME A: 医疗蓝调 — 单色渐变 + 毛玻璃 === */
+.scheme-a .icon-box {
+  background: linear-gradient(135deg, rgba(21,101,192,0.08) 0%, rgba(21,101,192,0.15) 100%);
+  backdrop-filter: blur(10px);
+}
+.scheme-a .icon-box svg {
+  filter: drop-shadow(0 1px 2px rgba(21,101,192,0.15));
+}
+
+/* === SCHEME B: 科技双色 — 主色+辅助色立体感 === */
+.scheme-b .icon-box {
+  background: #f5f5f5;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+}
+
+/* Bottom nav preview */
+.nav-preview {
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+.nav-preview-title {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 16px;
+}
+.nav-row {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  border-radius: 12px;
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.nav-item span {
+  font-size: 10px;
+}
+.nav-item.active span { font-weight: 600; }
+
+/* Scheme A nav */
+.scheme-a .nav-row {
+  background: linear-gradient(180deg, rgba(21,101,192,0.03) 0%, rgba(21,101,192,0.06) 100%);
+}
+.scheme-a .nav-item span { color: #999; }
+.scheme-a .nav-item.active span { color: #1565C0; }
+
+/* Scheme B nav */
+.scheme-b .nav-row {
+  background: linear-gradient(180deg, #fafbfc 0%, #f0f4f8 100%);
+}
+.scheme-b .nav-item span { color: #999; }
+.scheme-b .nav-item.active span { color: #00897B; }
+</style>
+</head>
+<body>
+
+<h1>i五院 图标设计方案</h1>
+<p class="subtitle">两套方案 × 5个代表图标 + 底部导航栏</p>
+
+<!-- ========== SCHEME A ========== -->
+<div class="scheme scheme-a">
+  <div class="scheme-title">📐 方案A：医疗蓝调</div>
+  <div class="scheme-desc">单色渐变体系 · 浅色毛玻璃底座 · 实心图形 · 克制统一<br>灵感：Apple Health / 支付宝医疗</div>
+  
+  <div class="icon-row">
+    <!-- 预约挂号 -->
+    <div class="icon-item">
+      <div class="icon-box">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <defs>
+            <linearGradient id="a1" x1="4" y1="4" x2="28" y2="28">
+              <stop offset="0%" stop-color="#1565C0"/>
+              <stop offset="100%" stop-color="#42A5F5"/>
+            </linearGradient>
+          </defs>
+          <rect x="6" y="3" width="20" height="24" rx="4" fill="url(#a1)" opacity="0.9"/>
+          <rect x="9" y="7" width="14" height="2" rx="1" fill="white" opacity="0.9"/>
+          <rect x="9" y="12" width="10" height="2" rx="1" fill="white" opacity="0.6"/>
+          <rect x="9" y="16" width="12" height="2" rx="1" fill="white" opacity="0.6"/>
+          <circle cx="22" cy="22" r="7" fill="#1565C0"/>
+          <path d="M19.5 22h5M22 19.5v5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="icon-label">预约挂号</span>
+    </div>
+
+    <!-- 在线门诊 -->
+    <div class="icon-item">
+      <div class="icon-box">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <defs>
+            <linearGradient id="a2" x1="4" y1="4" x2="28" y2="28">
+              <stop offset="0%" stop-color="#1565C0"/>
+              <stop offset="100%" stop-color="#42A5F5"/>
+            </linearGradient>
+          </defs>
+          <rect x="5" y="6" width="22" height="18" rx="4" fill="url(#a2)" opacity="0.9"/>
+          <circle cx="16" cy="13" r="3.5" fill="white" opacity="0.9"/>
+          <path d="M10 20c0-3.3 2.7-5 6-5s6 1.7 6 5" stroke="white" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
+          <rect x="12" y="26" width="8" height="2" rx="1" fill="url(#a2)" opacity="0.5"/>
+        </svg>
+      </div>
+      <span class="icon-label">在线门诊</span>
+    </div>
+
+    <!-- 门诊缴费 -->
+    <div class="icon-item">
+      <div class="icon-box">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <defs>
+            <linearGradient id="a3" x1="4" y1="4" x2="28" y2="28">
+              <stop offset="0%" stop-color="#1565C0"/>
+              <stop offset="100%" stop-color="#42A5F5"/>
+            </linearGradient>
+          </defs>
+          <circle cx="16" cy="16" r="12" fill="url(#a3)" opacity="0.9"/>
+          <text x="16" y="21" text-anchor="middle" fill="white" font-size="15" font-weight="700" font-family="Arial">¥</text>
+        </svg>
+      </div>
+      <span class="icon-label">门诊缴费</span>
+    </div>
+
+    <!-- 报告查询 -->
+    <div class="icon-item">
+      <div class="icon-box">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <defs>
+            <linearGradient id="a4" x1="4" y1="4" x2="28" y2="28">
+              <stop offset="0%" stop-color="#1565C0"/>
+              <stop offset="100%" stop-color="#42A5F5"/>
+            </linearGradient>
+          </defs>
+          <rect x="6" y="4" width="16" height="22" rx="3" fill="url(#a4)" opacity="0.9"/>
+          <rect x="9" y="8" width="10" height="1.5" rx="0.75" fill="white" opacity="0.8"/>
+          <rect x="9" y="12" width="7" height="1.5" rx="0.75" fill="white" opacity="0.6"/>
+          <rect x="9" y="16" width="9" height="1.5" rx="0.75" fill="white" opacity="0.6"/>
+          <circle cx="22" cy="22" r="6.5" fill="none" stroke="#1565C0" stroke-width="2.5"/>
+          <circle cx="22" cy="22" r="3" fill="#1565C0" opacity="0.3"/>
+          <line x1="26.5" y1="26.5" x2="29" y2="29" stroke="#1565C0" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="icon-label">报告查询</span>
+    </div>
+
+    <!-- 检查预约 -->
+    <div class="icon-item">
+      <div class="icon-box">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <defs>
+            <linearGradient id="a5" x1="4" y1="4" x2="28" y2="28">
+              <stop offset="0%" stop-color="#1565C0"/>
+              <stop offset="100%" stop-color="#42A5F5"/>
+            </linearGradient>
+          </defs>
+          <rect x="5" y="6" width="22" height="20" rx="4" fill="url(#a5)" opacity="0.9"/>
+          <rect x="5" y="6" width="22" height="7" rx="4" fill="#1565C0"/>
+          <rect x="11" y="3" width="2.5" height="6" rx="1.25" fill="#1565C0"/>
+          <rect x="18.5" y="3" width="2.5" height="6" rx="1.25" fill="#1565C0"/>
+          <rect x="9" y="16" width="4" height="3" rx="1" fill="white" opacity="0.8"/>
+          <rect x="14.5" y="16" width="4" height="3" rx="1" fill="white" opacity="0.5"/>
+          <rect x="20" y="16" width="4" height="3" rx="1" fill="white" opacity="0.5"/>
+          <rect x="9" y="21" width="4" height="3" rx="1" fill="white" opacity="0.5"/>
+          <rect x="14.5" y="21" width="4" height="3" rx="1" fill="white" opacity="0.3"/>
+        </svg>
+      </div>
+      <span class="icon-label">检查预约</span>
+    </div>
+  </div>
+
+  <!-- Bottom nav preview -->
+  <div class="nav-preview">
+    <div class="nav-preview-title">底部导航栏预览</div>
+    <div class="nav-row">
+      <div class="nav-item active">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#1565C0">
+          <path d="M4 21V9l8-6 8 6v12h-6v-6h-4v6H4z"/>
+        </svg>
+        <span>首页</span>
+      </div>
+      <div class="nav-item">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#C0C0C0">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        <span>健康</span>
+      </div>
+      <div class="nav-item">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#C0C0C0">
+          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+        </svg>
+        <span>消息</span>
+      </div>
+      <div class="nav-item">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#C0C0C0">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+        <span>我的</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SCHEME B ========== -->
+<div class="scheme scheme-b">
+  <div class="scheme-title">📐 方案B：科技双色</div>
+  <div class="scheme-desc">主色+辅助色双层 · 圆形底座 · 微立体感 · 专业温暖<br>灵感：微医 / 京东健康 / 丁香医生</div>
+  
+  <div class="icon-row">
+    <!-- 预约挂号 -->
+    <div class="icon-item">
+      <div class="icon-box" style="background: linear-gradient(135deg, #E0F2F1 0%, #B2DFDB 100%);">
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+          <rect x="5" y="2" width="18" height="22" rx="3.5" fill="#00897B"/>
+          <rect x="8" y="6" width="12" height="2" rx="1" fill="white" opacity="0.85"/>
+          <rect x="8" y="10.5" width="8" height="1.5" rx="0.75" fill="white" opacity="0.5"/>
+          <rect x="8" y="14" width="10" height="1.5" rx="0.75" fill="white" opacity="0.5"/>
+          <circle cx="21" cy="21" r="7" fill="#00695C"/>
+          <path d="M18.5 21h5M21 18.5v5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="icon-label">预约挂号</span>
+    </div>
+
+    <!-- 在线门诊 -->
+    <div class="icon-item">
+      <div class="icon-box" style="background: linear-gradient(135deg, #E0F2F1 0%, #B2DFDB 100%);">
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+          <circle cx="15" cy="11" r="5" fill="#00897B"/>
+          <path d="M7 24c0-4.4 3.6-7 8-7s8 2.6 8 7" fill="#00897B" opacity="0.7"/>
+          <circle cx="15" cy="11" r="3" fill="white" opacity="0.3"/>
+          <rect x="19" y="4" width="8" height="6" rx="2" fill="#00695C"/>
+          <circle cx="23" cy="7" r="1.5" fill="white" opacity="0.8"/>
+          <rect x="21" y="10" width="4" height="1.5" rx="0.75" fill="#00695C" opacity="0.6"/>
+        </svg>
+      </div>
+      <span class="icon-label">在线门诊</span>
+    </div>
+
+    <!-- 门诊缴费 -->
+    <div class="icon-item">
+      <div class="icon-box" style="background: linear-gradient(135deg, #E0F2F1 0%, #B2DFDB 100%);">
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+          <rect x="3" y="7" width="24" height="16" rx="4" fill="#00897B"/>
+          <rect x="3" y="11" width="24" height="3" fill="#00695C"/>
+          <text x="15" y="22" text-anchor="middle" fill="white" font-size="10" font-weight="700" font-family="Arial">¥</text>
+          <circle cx="22" cy="19" r="2" fill="white" opacity="0.4"/>
+          <circle cx="22" cy="19" r="3.5" fill="none" stroke="white" stroke-width="0.8" opacity="0.3"/>
+        </svg>
+      </div>
+      <span class="icon-label">门诊缴费</span>
+    </div>
+
+    <!-- 报告查询 -->
+    <div class="icon-item">
+      <div class="icon-box" style="background: linear-gradient(135deg, #E0F2F1 0%, #B2DFDB 100%);">
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+          <rect x="4" y="3" width="16" height="21" rx="3" fill="#00897B"/>
+          <rect x="7" y="7" width="10" height="1.5" rx="0.75" fill="white" opacity="0.8"/>
+          <rect x="7" y="10.5" width="7" height="1.5" rx="0.75" fill="white" opacity="0.5"/>
+          <rect x="7" y="14" width="9" height="1.5" rx="0.75" fill="white" opacity="0.5"/>
+          <rect x="7" y="17.5" width="5" height="1.5" rx="0.75" fill="white" opacity="0.4"/>
+          <circle cx="21" cy="20" r="6" fill="none" stroke="#00695C" stroke-width="2.5"/>
+          <line x1="25" y1="24" x2="27.5" y2="26.5" stroke="#00695C" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="icon-label">报告查询</span>
+    </div>
+
+    <!-- 检查预约 -->
+    <div class="icon-item">
+      <div class="icon-box" style="background: linear-gradient(135deg, #E0F2F1 0%, #B2DFDB 100%);">
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+          <rect x="4" y="5" width="22" height="20" rx="4" fill="#00897B" opacity="0.85"/>
+          <rect x="4" y="5" width="22" height="7" rx="4" fill="#00695C"/>
+          <rect x="10" y="2.5" width="2.5" height="5" rx="1.25" fill="#00695C"/>
+          <rect x="17.5" y="2.5" width="2.5" height="5" rx="1.25" fill="#00695C"/>
+          <circle cx="11" cy="18" r="2" fill="white" opacity="0.8"/>
+          <circle cx="19" cy="18" r="2" fill="white" opacity="0.5"/>
+          <circle cx="11" cy="22.5" r="2" fill="white" opacity="0.5"/>
+          <circle cx="19" cy="22.5" r="2" fill="white" opacity="0.3"/>
+        </svg>
+      </div>
+      <span class="icon-label">检查预约</span>
+    </div>
+  </div>
+
+  <!-- Bottom nav preview -->
+  <div class="nav-preview">
+    <div class="nav-preview-title">底部导航栏预览</div>
+    <div class="nav-row">
+      <div class="nav-item active">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#00897B">
+          <path d="M4 21V9l8-6 8 6v12h-6v-6h-4v6H4z"/>
+        </svg>
+        <span>首页</span>
+      </div>
+      <div class="nav-item">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#BDBDBD">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        <span>健康</span>
+      </div>
+      <div class="nav-item">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#BDBDBD">
+          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+        </svg>
+        <span>消息</span>
+      </div>
+      <div class="nav-item">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#BDBDBD">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+        <span>我的</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

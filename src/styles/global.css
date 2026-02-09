@@ -1,0 +1,290 @@
+@import './variables.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background: #E8ECF0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Scrollbar hide */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Control Panel */
+.control-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #FFFFFF;
+  border-bottom: 1px solid #E0E0E0;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.ctrl-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ctrl-label {
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.ctrl-btns {
+  display: flex;
+  gap: 4px;
+}
+
+.ctrl-btn {
+  padding: 5px 14px;
+  border: 1px solid #D0D0D0;
+  border-radius: 6px;
+  background: #FFF;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #555;
+  font-weight: 500;
+}
+
+.ctrl-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.ctrl-btn.active {
+  background: var(--primary);
+  color: #FFF;
+  border-color: var(--primary);
+}
+
+/* Phone Frame */
+.phone-wrapper {
+  margin-top: 70px;
+  margin-bottom: 40px;
+}
+
+.phone-frame {
+  width: 375px;
+  height: 812px;
+  background: var(--bg);
+  border-radius: 44px;
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    0 0 0 2px #1A1A1A,
+    0 0 0 4px #333,
+    0 0 0 5px #1A1A1A,
+    0 20px 60px rgba(0,0,0,0.3),
+    0 10px 30px rgba(0,0,0,0.2);
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg);
+}
+
+/* Status Bar - iOS */
+.status-bar-ios {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 44px;
+  padding: 12px 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #FFF;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.status-bar-ios .time {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.status-bar-ios .icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.status-bar-ios .icons svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Status Bar - Android */
+.status-bar-android {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 28px;
+  padding: 4px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #FFF;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.status-bar-android .icons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Android Nav Bar */
+.android-nav {
+  height: 36px;
+  background: #F5F5F5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  color: #999;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* WeChat Capsule */
+.wechat-capsule {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.3);
+  border: 0.5px solid rgba(255,255,255,0.4);
+  border-radius: 16px;
+  height: 32px;
+  padding: 0 2px;
+  backdrop-filter: blur(10px);
+}
+
+.wechat-capsule .dots {
+  padding: 0 10px;
+  font-size: 18px;
+  color: #FFF;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.wechat-capsule .divider {
+  width: 0.5px;
+  height: 18px;
+  background: rgba(255,255,255,0.5);
+}
+
+.wechat-capsule .scan {
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wechat-capsule .scan svg {
+  width: 18px;
+  height: 18px;
+  color: #FFF;
+}
+
+/* Tab Bar */
+.tab-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: var(--primary-bg-light, #F0F7FF);
+  border-top: 0.5px solid rgba(0,0,0,.04);
+  display: flex;
+  padding-bottom: 8px;
+  z-index: 50;
+}
+
+.tab-bar-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+  position: relative;
+}
+
+.tab-bar-item svg {
+  width: 24px;
+  height: 24px;
+  color: #999;
+  transition: color 0.2s;
+}
+
+.tab-bar-item span {
+  font-size: 10px;
+  color: #999;
+  transition: color 0.2s;
+}
+
+.tab-bar-item.active svg {
+  color: var(--primary);
+}
+
+.tab-bar-item.active span {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.tab-bar-item .badge {
+  position: absolute;
+  top: 4px;
+  right: 50%;
+  margin-right: -18px;
+  width: 16px;
+  height: 16px;
+  background: var(--badge);
+  border-radius: 50%;
+  font-size: 10px;
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-bar-item .dot {
+  position: absolute;
+  top: 8px;
+  right: 50%;
+  margin-right: -16px;
+  width: 8px;
+  height: 8px;
+  background: var(--badge);
+  border-radius: 50%;
+}
