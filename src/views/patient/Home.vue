@@ -27,7 +27,7 @@
         <div class="nav-row">
           <img src="/emblem.png" class="hospital-logo" alt="logo" />
           <div class="app-title-capsule">
-            <span class="title-i">i</span><span class="title-main">五院</span>
+            <span class="title-main">龙岗耳鼻喉</span>
           </div>
           <div class="wechat-capsule">
             <span class="cap-dots">···</span>

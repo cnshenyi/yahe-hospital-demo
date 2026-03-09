@@ -1,19 +1,19 @@
-/* Theme Variables */
+/* Theme Variables - 龙岗耳鼻喉医院官方配色 */
 :root,
 [data-theme="A"] {
-  --primary: #1565C0;
-  --primary-light: #42A5F5;
-  --primary-dark: #0D47A1;
-  --primary-rgb: 21, 101, 192;
-  --primary-light-rgb: 66, 165, 245;
-  --gradient: linear-gradient(135deg, #1565C0, #42A5F5);
-  --gradient-header: linear-gradient(180deg, #0D47A1 0%, #1565C0 40%, #42A5F5 100%);
-  --primary-bg: #E3F2FD;
-  --primary-bg-light: #F0F7FF;
-  --icon-accent1: #1565C0;
-  --icon-accent2: #42A5F5;
-  --icon-accent3: #FF7043;
-  --icon-accent4: #66BB6A;
+  --primary: #671E75;
+  --primary-light: #D9BBDF;
+  --primary-dark: #6C207D;
+  --primary-rgb: 103, 30, 117;
+  --primary-light-rgb: 217, 187, 223;
+  --gradient: linear-gradient(135deg, #671E75, #D9BBDF);
+  --gradient-header: linear-gradient(180deg, #6C207D 0%, #671E75 40%, #D9BBDF 100%);
+  --primary-bg: #F9F5FA;
+  --primary-bg-light: #FDF9FE;
+  --icon-accent1: #671E75;
+  --icon-accent2: #E4A722;
+  --icon-accent3: #D9BBDF;
+  --icon-accent4: #6C207D;
 }
 
 [data-theme="B"] {

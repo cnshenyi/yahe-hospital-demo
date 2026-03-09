@@ -118,7 +118,7 @@ const healthServices = computed(() => {
   ]
 })
 
-const menuItems = ['自助入院办理', '我的发票', '报销清单', '互联网医院门诊电子病历申请', '收货地址']
+const menuItems = ['自助入院办理', '我的发票', '报销清单', '门诊电子病历申请', '收货地址']
 </script>
 
 <style scoped>
