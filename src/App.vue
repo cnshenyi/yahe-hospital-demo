@@ -3,7 +3,7 @@
     <div class="ctrl-group">
       <span class="ctrl-label">Theme:</span>
       <div class="ctrl-btns">
-        <button class="ctrl-btn" :class="{ active: theme === 'A' }" @click="setTheme('A')">A 中山蓝</button>
+        <button class="ctrl-btn" :class="{ active: theme === 'A' }" @click="setTheme('A')">A 龙岗紫</button>
         <button class="ctrl-btn" :class="{ active: theme === 'B' }" @click="setTheme('B')">B 科技蓝绿</button>
       </div>
     </div>
