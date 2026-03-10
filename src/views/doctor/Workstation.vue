@@ -21,13 +21,13 @@
           <div class="geo-line g3"></div>
         </div>
         <div class="doc-info">
-          <img src="/doctor.png" class="doc-avatar" alt="doctor" />
+          <img src="/images/doctor-zeng.png" class="doc-avatar" alt="doctor" />
           <div class="doc-text">
             <div class="doc-name-row">
-              <span class="doc-name">李啸峰</span>
-              <span class="doc-title">主任医师</span>
+              <span class="doc-name">曾宪海</span>
+              <span class="doc-title">主任医师/教授/院长</span>
             </div>
-            <span class="doc-hospital">中山大学附属第五医院</span>
+            <span class="doc-hospital">深圳市龙岗区耳鼻咽喉医院</span>
             <div class="doc-stats-row">
               <span>今日接诊数：<strong>5</strong></span>
               <span>今日剩余号源：<strong>23</strong></span>
