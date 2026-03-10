@@ -17,10 +17,10 @@
       <div class="profile-header">
         <div class="header-bg"><div class="geo g1"></div><div class="geo g2"></div></div>
         <div class="profile-row">
-          <img src="/images/doctor-chen.png" class="doc-avatar" alt="doctor" />
+          <img src="/images/doctor-zeng.png" class="doc-avatar" alt="doctor" />
           <div class="profile-text">
             <div class="name-row">
-              <span class="doc-name">陈合新</span>
+              <span class="doc-name">曾宪海</span>
               <span class="doc-badge">主任医师</span>
             </div>
             <span class="doc-org">深圳市龙岗区耳鼻咽喉医院</span>
