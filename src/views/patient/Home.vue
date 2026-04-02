@@ -382,12 +382,12 @@ onUnmounted(() => { if (timer) clearInterval(timer) })
 .yahe-banner {
   position: relative; border-radius: 14px; overflow: hidden;
   height: 130px;
-  background: url('/images/yahe/hero-banner.png') center/cover no-repeat;
-  box-shadow: 0 6px 20px rgba(10, 42, 74, 0.35);
+  background: url('/images/yahe/hero-banner.png') center 30%/cover no-repeat;
+  box-shadow: 0 6px 20px rgba(60, 30, 10, 0.3);
 }
 .yahe-banner::before {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(10,42,74,0.82) 0%, rgba(13,74,110,0.65) 50%, rgba(10,122,138,0.45) 100%);
+  background: linear-gradient(105deg, rgba(40,22,8,0.78) 0%, rgba(80,45,15,0.60) 50%, rgba(120,80,30,0.35) 100%);
   z-index: 1;
 }
 .yahe-banner-bg { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
@@ -410,12 +410,12 @@ onUnmounted(() => { if (timer) clearInterval(timer) })
 .yahe-logo-area { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 .yahe-emblem { flex-shrink: 0; }
 .yahe-title-group { display: flex; flex-direction: column; gap: 2px; }
-.yahe-en { font-size: 9px; color: rgba(255,255,255,0.55); letter-spacing: 1.5px; font-weight: 500; }
-.yahe-cn { font-size: 17px; color: #fff; font-weight: 700; letter-spacing: 3px; }
-.yahe-divider { width: 32px; height: 1px; background: rgba(255,255,255,0.3); margin-bottom: 6px; }
-.yahe-tagline { font-size: 12px; color: rgba(255,255,255,0.75); letter-spacing: 1px; margin-bottom: 8px; }
+.yahe-en { font-size: 9px; color: rgba(255,220,160,0.75); letter-spacing: 1.5px; font-weight: 500; }
+.yahe-cn { font-size: 17px; color: #fff; font-weight: 700; letter-spacing: 3px; text-shadow: 0 1px 6px rgba(0,0,0,0.4); }
+.yahe-divider { width: 32px; height: 1px; background: linear-gradient(90deg, #d4a96a, rgba(212,169,106,0.2)); margin-bottom: 6px; }
+.yahe-tagline { font-size: 12px; color: rgba(255,230,180,0.85); letter-spacing: 1px; margin-bottom: 8px; }
 .yahe-cta {
   display: inline-flex; align-items: center; gap: 4px;
-  font-size: 11px; color: #7dd8e8; font-weight: 600; letter-spacing: 0.5px;
+  font-size: 11px; color: #d4a96a; font-weight: 600; letter-spacing: 0.5px;
 }
 </style>
