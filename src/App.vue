@@ -3,15 +3,7 @@
     <div class="ctrl-group">
       <span class="ctrl-label">Theme:</span>
       <div class="ctrl-btns">
-        <button class="ctrl-btn" :class="{ active: theme === 'A' }" @click="setTheme('A')">A 龙岗紫</button>
-        <button class="ctrl-btn" :class="{ active: theme === 'B' }" @click="setTheme('B')">B 科技蓝绿</button>
-      </div>
-    </div>
-    <div class="ctrl-group">
-      <span class="ctrl-label">Mode:</span>
-      <div class="ctrl-btns">
-        <button class="ctrl-btn" :class="{ active: side === 'patient' }" @click="setSide('patient')">患者端</button>
-        <button class="ctrl-btn" :class="{ active: side === 'doctor' }" @click="setSide('doctor')">医生端</button>
+        <button class="ctrl-btn active">B 科技蓝绿</button>
       </div>
     </div>
     <div class="ctrl-group">
@@ -31,10 +23,10 @@
   <div class="phone-wrapper">
     <div class="phone-frame" :data-theme="theme">
       <div class="phone-screen hide-scrollbar" ref="screenRef">
-        <router-view :theme="theme" :side="side" />
+        <router-view :theme="theme" :side="side" @navigate="handleNavigate" />
       </div>
-      <!-- Tab Bar -->
-      <div class="tab-bar">
+      <!-- Tab Bar: hide on yahe pages -->
+      <div class="tab-bar" v-if="!isYahePage">
         <div
           v-for="(page, idx) in currentPages"
           :key="page.path"
@@ -59,7 +51,7 @@ import { tabHome, tabHealth, tabMessage, tabMy, tabWorkstation, tabPatients, the
 const router = useRouter()
 const route = useRoute()
 
-const theme = ref('A')
+const theme = ref('B')
 const side = ref('patient')
 
 // Solid filled tab bar icons — color is injected based on active state + theme
@@ -88,20 +80,34 @@ const patientPages = [
   { path: '/patient/my', label: '我的', icon: IconUser },
 ]
 
-const doctorPages = [
-  { path: '/doctor/workstation', label: '工作台', icon: IconWorkstation },
-  { path: '/doctor/patients', label: '患者', icon: IconPatients },
-  { path: '/doctor/message', label: '消息', icon: IconMsg, badge: true },
-  { path: '/doctor/my', label: '我的', icon: IconUser },
-]
-
-const currentPages = computed(() => side.value === 'patient' ? patientPages : doctorPages)
+const currentPages = computed(() => patientPages)
 const currentPageIdx = computed(() => {
   const idx = currentPages.value.findIndex(p => route.path === p.path)
   return idx >= 0 ? idx : 0
 })
 
+const isYahePage = computed(() => route.path.startsWith('/yahe'))
+
 const screenRef = ref(null)
+
+function handleNavigate(target) {
+  const routeMap = {
+    'home': '/patient/home',
+    'yahe-entry': '/yahe/entry',
+    'yahe-home': '/yahe/home',
+    'yahe-register': '/yahe/register',
+    'yahe-insurance': '/yahe/insurance',
+    'yahe-guide': '/yahe/guide',
+    'yahe-inpatient': '/yahe/inpatient',
+    'yahe-health': '/yahe/health',
+    'yahe-report': '/yahe/report',
+    'yahe-pay': '/yahe/pay',
+    'yahe-doctors': '/yahe/doctors',
+  }
+  const path = routeMap[target] || '/patient/home'
+  router.push(path)
+  if (screenRef.value) screenRef.value.scrollTop = 0
+}
 
 function setTheme(t) {
   theme.value = t

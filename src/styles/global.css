@@ -105,9 +105,11 @@ body {
 .phone-screen {
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
   background: var(--bg);
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Status Bar - iOS */

@@ -27,7 +27,7 @@
         <div class="nav-row">
           <img src="/emblem.png" class="hospital-logo" alt="logo" />
           <div class="app-title-capsule">
-            <span class="title-main">龙岗耳鼻喉</span>
+            <span class="title-main">i六院</span>
           </div>
           <div class="wechat-capsule">
             <span class="cap-dots">···</span>
@@ -115,14 +115,33 @@
       </div>
     </div>
 
-    <!-- Nursing Banner -->
+    <!-- 雅和高端医疗 Banner -->
     <div class="nursing-section">
-      <div class="nursing-banner">
-        <img src="/images/nursing-banner.png" alt="互联网护理" class="nursing-img" />
-        <div class="nursing-overlay">
-          <div class="nursing-badge">特色服务</div>
-          <h3>互联网+护理服务</h3>
-          <p>专业护士上门，居家护理无忧</p>
+      <div class="yahe-banner" @click="$emit('navigate', 'yahe-entry')" style="cursor:pointer">
+        <div class="yahe-banner-bg">
+          <div class="yahe-deco-circle c1"></div>
+          <div class="yahe-deco-circle c2"></div>
+          <div class="yahe-deco-line l1"></div>
+          <div class="yahe-deco-line l2"></div>
+        </div>
+        <div class="yahe-banner-content">
+          <div class="yahe-logo-area">
+            <div class="yahe-emblem">
+              <svg viewBox="0 0 40 40" width="40" height="40" fill="none">
+                <circle cx="20" cy="20" r="18" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
+                <path d="M20 8 L20 32 M8 20 L32 20" stroke="rgba(255,255,255,0.5)" stroke-width="1.2" stroke-linecap="round"/>
+                <circle cx="20" cy="20" r="5" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.7)" stroke-width="1.2"/>
+                <circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.9)"/>
+              </svg>
+            </div>
+            <div class="yahe-title-group">
+              <span class="yahe-en">YAHE PREMIUM HEALTHCARE</span>
+              <span class="yahe-cn">雅和高端医疗</span>
+            </div>
+          </div>
+          <div class="yahe-divider"></div>
+          <p class="yahe-tagline">专属医疗管家 · 全程尊享服务</p>
+          <div class="yahe-cta">了解更多 <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h8M9 5l3 3-3 3"/></svg></div>
         </div>
       </div>
     </div>
@@ -143,7 +162,8 @@ import {
   iconHospitalPay, iconHospitalList, iconDischarge, iconDailyList
 } from '../../utils/icons.js'
 
-const props = defineProps({ theme: { type: String, default: 'A' }, side: String })
+const props = defineProps({ theme: { type: String, default: 'B' }, side: String })
+const emit = defineEmits(['navigate'])
 
 const bannerIdx = ref(0)
 let timer = null
@@ -357,21 +377,39 @@ onUnmounted(() => { if (timer) clearInterval(timer) })
 .sgrid-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
 .sgrid-item span { font-size: 11px; color: #666; text-align: center; line-height: 1.3; }
 
-/* Nursing Section */
+/* Yahe Premium Banner */
 .nursing-section { margin: 8px 12px 0; }
-.nursing-banner {
-  position: relative; border-radius: 12px; overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0,0,0,.1); height: 130px;
+.yahe-banner {
+  position: relative; border-radius: 14px; overflow: hidden;
+  height: 130px; background: linear-gradient(135deg, #0a2a4a 0%, #0d4a6e 45%, #0a7a8a 100%);
+  box-shadow: 0 6px 20px rgba(10, 42, 74, 0.35);
 }
-.nursing-img { width: 100%; height: 100%; object-fit: cover; }
-.nursing-overlay {
-  position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.15) 100%);
+.yahe-banner-bg { position: absolute; inset: 0; pointer-events: none; }
+.yahe-deco-circle {
+  position: absolute; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.yahe-deco-circle.c1 { width: 180px; height: 180px; top: -60px; right: -40px; }
+.yahe-deco-circle.c2 { width: 100px; height: 100px; bottom: -30px; right: 60px; border-color: rgba(255,255,255,0.05); }
+.yahe-deco-line {
+  position: absolute; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  height: 1px; width: 100%;
+}
+.yahe-deco-line.l1 { top: 35%; }
+.yahe-deco-line.l2 { top: 65%; opacity: 0.5; }
+.yahe-banner-content {
+  position: relative; z-index: 2; height: 100%;
   display: flex; flex-direction: column; justify-content: center; padding: 16px 20px;
 }
-.nursing-badge {
-  font-size: 10px; color: #fff; background: var(--primary); padding: 2px 8px;
-  border-radius: 4px; align-self: flex-start; margin-bottom: 6px; font-weight: 600;
+.yahe-logo-area { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.yahe-emblem { flex-shrink: 0; }
+.yahe-title-group { display: flex; flex-direction: column; gap: 2px; }
+.yahe-en { font-size: 9px; color: rgba(255,255,255,0.55); letter-spacing: 1.5px; font-weight: 500; }
+.yahe-cn { font-size: 17px; color: #fff; font-weight: 700; letter-spacing: 3px; }
+.yahe-divider { width: 32px; height: 1px; background: rgba(255,255,255,0.3); margin-bottom: 6px; }
+.yahe-tagline { font-size: 12px; color: rgba(255,255,255,0.75); letter-spacing: 1px; margin-bottom: 8px; }
+.yahe-cta {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; color: #7dd8e8; font-weight: 600; letter-spacing: 0.5px;
 }
-.nursing-overlay h3 { color: #fff; font-size: 17px; font-weight: 700; margin-bottom: 4px; }
-.nursing-overlay p { color: rgba(255,255,255,.85); font-size: 12px; }
 </style>

@@ -53,7 +53,7 @@
 <script setup>
 const messages = [
   {
-    name: '龙岗耳鼻喉通知', title: '', time: '今天 10:30',
+    name: 'i六院通知', title: '', time: '今天 10:30',
     preview: '您的挂号订单已确认，请按时就诊',
     avatarBg: 'var(--primary)', badge: 3,
     avatarSvg: '<svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>'
