@@ -128,12 +128,12 @@
           <div class="yahe-logo-area">
             <img src="/images/yahe/logo.png" class="yahe-logo-img" alt="雅和" />
             <div class="yahe-title-group">
-              <span class="yahe-en">YAHE PREMIUM HEALTHCARE</span>
-              <span class="yahe-cn">雅和高端医疗</span>
+              <span class="yahe-en">GRACELAND MEDICAL CENTER</span>
+              <span class="yahe-cn">雅和医疗中心</span>
+              <span class="yahe-sub">中山大学附属第六医院</span>
             </div>
           </div>
           <div class="yahe-divider"></div>
-          <p class="yahe-tagline">综合医疗 · 专属专家 · 全程导诊</p>
           <div class="yahe-cta">了解更多 <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h8M9 5l3 3-3 3"/></svg></div>
         </div>
       </div>
@@ -401,10 +401,11 @@ onUnmounted(() => { if (timer) clearInterval(timer) })
   display: flex; flex-direction: column; justify-content: center; padding: 16px 20px;
 }
 .yahe-logo-area { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.yahe-logo-img { width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; filter: drop-shadow(0 1px 4px rgba(0,0,0,0.3)); }
-.yahe-title-group { display: flex; flex-direction: column; gap: 2px; }
-.yahe-en { font-size: 9px; color: rgba(255,220,160,0.75); letter-spacing: 1.5px; font-weight: 500; }
-.yahe-cn { font-size: 17px; color: #fff; font-weight: 700; letter-spacing: 3px; text-shadow: 0 1px 6px rgba(0,0,0,0.4); }
+.yahe-logo-img { width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; background: transparent; mix-blend-mode: lighten; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4)); }
+.yahe-title-group { display: flex; flex-direction: column; gap: 1px; }
+.yahe-en { font-size: 8px; color: rgba(255,220,160,0.75); letter-spacing: 1.2px; font-weight: 500; }
+.yahe-cn { font-size: 16px; color: #fff; font-weight: 700; letter-spacing: 2px; text-shadow: 0 1px 6px rgba(0,0,0,0.4); }
+.yahe-sub { font-size: 10px; color: rgba(255,230,180,0.7); letter-spacing: 0.5px; }
 .yahe-divider { width: 32px; height: 1px; background: linear-gradient(90deg, #d4a96a, rgba(212,169,106,0.2)); margin-bottom: 6px; }
 .yahe-tagline { font-size: 12px; color: rgba(255,230,180,0.85); letter-spacing: 1px; margin-bottom: 8px; }
 .yahe-cta {
