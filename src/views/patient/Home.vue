@@ -126,21 +126,14 @@
         </div>
         <div class="yahe-banner-content">
           <div class="yahe-logo-area">
-            <div class="yahe-emblem">
-              <svg viewBox="0 0 40 40" width="40" height="40" fill="none">
-                <circle cx="20" cy="20" r="18" stroke="rgba(255,255,255,0.6)" stroke-width="1"/>
-                <path d="M20 8 L20 32 M8 20 L32 20" stroke="rgba(255,255,255,0.5)" stroke-width="1.2" stroke-linecap="round"/>
-                <circle cx="20" cy="20" r="5" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.7)" stroke-width="1.2"/>
-                <circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.9)"/>
-              </svg>
-            </div>
+            <img src="/images/yahe/logo.png" class="yahe-logo-img" alt="雅和" />
             <div class="yahe-title-group">
               <span class="yahe-en">YAHE PREMIUM HEALTHCARE</span>
               <span class="yahe-cn">雅和高端医疗</span>
             </div>
           </div>
           <div class="yahe-divider"></div>
-          <p class="yahe-tagline">专属医疗管家 · 全程尊享服务</p>
+          <p class="yahe-tagline">综合医疗 · 专属专家 · 全程导诊</p>
           <div class="yahe-cta">了解更多 <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h8M9 5l3 3-3 3"/></svg></div>
         </div>
       </div>
@@ -408,7 +401,7 @@ onUnmounted(() => { if (timer) clearInterval(timer) })
   display: flex; flex-direction: column; justify-content: center; padding: 16px 20px;
 }
 .yahe-logo-area { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.yahe-emblem { flex-shrink: 0; }
+.yahe-logo-img { width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; filter: drop-shadow(0 1px 4px rgba(0,0,0,0.3)); }
 .yahe-title-group { display: flex; flex-direction: column; gap: 2px; }
 .yahe-en { font-size: 9px; color: rgba(255,220,160,0.75); letter-spacing: 1.5px; font-weight: 500; }
 .yahe-cn { font-size: 17px; color: #fff; font-weight: 700; letter-spacing: 3px; text-shadow: 0 1px 6px rgba(0,0,0,0.4); }
