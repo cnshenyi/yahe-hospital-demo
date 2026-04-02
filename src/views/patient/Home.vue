@@ -381,10 +381,16 @@ onUnmounted(() => { if (timer) clearInterval(timer) })
 .nursing-section { margin: 8px 12px 0; }
 .yahe-banner {
   position: relative; border-radius: 14px; overflow: hidden;
-  height: 130px; background: linear-gradient(135deg, #0a2a4a 0%, #0d4a6e 45%, #0a7a8a 100%);
+  height: 130px;
+  background: url('/images/yahe/hero-banner.png') center/cover no-repeat;
   box-shadow: 0 6px 20px rgba(10, 42, 74, 0.35);
 }
-.yahe-banner-bg { position: absolute; inset: 0; pointer-events: none; }
+.yahe-banner::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(10,42,74,0.82) 0%, rgba(13,74,110,0.65) 50%, rgba(10,122,138,0.45) 100%);
+  z-index: 1;
+}
+.yahe-banner-bg { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
 .yahe-deco-circle {
   position: absolute; border-radius: 50%;
   border: 1px solid rgba(255,255,255,0.08);
@@ -398,7 +404,7 @@ onUnmounted(() => { if (timer) clearInterval(timer) })
 .yahe-deco-line.l1 { top: 35%; }
 .yahe-deco-line.l2 { top: 65%; opacity: 0.5; }
 .yahe-banner-content {
-  position: relative; z-index: 2; height: 100%;
+  position: relative; z-index: 3; height: 100%;
   display: flex; flex-direction: column; justify-content: center; padding: 16px 20px;
 }
 .yahe-logo-area { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
