@@ -4,8 +4,8 @@
       <button class="back-btn" @click="$emit('navigate', 'yahe-home')">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#D6AE6C" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
-      <span>{{ lang === 'zh' ? '快速缴费' : 'Quick Payment' }}</span>
-      <div class="lang-toggle" @click="toggleLang">{{ lang === 'zh' ? 'EN' : '中' }}</div>
+      <span>{{ getText('快速缴费', '快速繳費', 'Quick Payment') }}</span>
+      <div class="lang-toggle" @click="toggleLang">{{ lang === 'zh-CN' ? '简' : lang === 'zh-TW' ? '繁' : 'EN' }}</div>
     </div>
     <div class="page-body">
       <div class="pay-tabs">
@@ -15,25 +15,25 @@
       <div v-if="activeTab === 0">
         <div class="bill-card" v-for="b in pendingBills" :key="b.id">
           <div class="bill-header">
-            <span class="bill-name">{{ lang === 'zh' ? b.nameCn : b.nameEn }}</span>
+            <span class="bill-name">{{ getText(b.nameCn, b.nameTw, b.nameEn) }}</span>
             <span class="bill-amount">¥{{ b.amount }}</span>
           </div>
           <div class="bill-meta">
             <span>{{ b.date }}</span>
-            <span>{{ lang === 'zh' ? b.deptCn : b.deptEn }}</span>
+            <span>{{ getText(b.deptCn, b.deptTw, b.deptEn) }}</span>
           </div>
-          <button class="pay-now-btn" @click="doPay(b)">{{ lang === 'zh' ? '立即缴费' : 'Pay Now' }}</button>
+          <button class="pay-now-btn" @click="doPay(b)">{{ getText('立即缴费', '立即繳費', 'Pay Now') }}</button>
         </div>
         <div class="empty-tip" v-if="pendingBills.length === 0">
           <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke="rgba(214,174,108,0.3)" stroke-width="1.5"><rect x="8" y="12" width="48" height="36" rx="4"/><path d="M8 22h48"/><rect x="14" y="30" width="12" height="8" rx="2"/></svg>
-          <p>{{ lang === 'zh' ? '暂无待缴费项目' : 'No pending payments' }}</p>
+          <p>{{ getText('暂无待缴费项目', '暫無待繳費項目', 'No pending payments') }}</p>
         </div>
       </div>
       <!-- 缴费记录 -->
       <div v-if="activeTab === 1">
         <div class="history-item" v-for="h in history" :key="h.id">
           <div class="history-info">
-            <span class="history-name">{{ lang === 'zh' ? h.nameCn : h.nameEn }}</span>
+            <span class="history-name">{{ getText(h.nameCn, h.nameTw, h.nameEn) }}</span>
             <span class="history-date">{{ h.date }}</span>
           </div>
           <div class="history-right">
@@ -49,9 +49,9 @@
             <circle cx="32" cy="32" r="30" stroke="#D6AE6C" stroke-width="2" fill="rgba(214,174,108,0.1)"/>
             <path d="M20 32l8 8 16-16" stroke="#D6AE6C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <div class="success-title">{{ lang === 'zh' ? '缴费成功' : 'Payment Successful' }}</div>
+          <div class="success-title">{{ getText('缴费成功', '繳費成功', 'Payment Successful') }}</div>
           <div class="success-amount">¥{{ paidAmount }}</div>
-          <button class="close-btn" @click="showSuccess = false">{{ lang === 'zh' ? '完成' : 'Done' }}</button>
+          <button class="close-btn" @click="showSuccess = false">{{ getText('完成', '完成', 'Done') }}</button>
         </div>
       </div>
     </div>
@@ -60,20 +60,39 @@
 <script setup>
 import { ref, computed } from 'vue'
 const emit = defineEmits(['navigate'])
-const lang = ref('zh')
+const lang = ref('zh-CN')
 const activeTab = ref(0)
 const showSuccess = ref(false)
 const paidAmount = ref(0)
-function toggleLang() { lang.value = lang.value === 'zh' ? 'en' : 'zh' }
-const tabs = computed(() => lang.value === 'zh' ? ['待缴费', '缴费记录'] : ['Pending', 'History'])
+
+function toggleLang() { 
+  if (lang.value === 'zh-CN') lang.value = 'zh-TW'
+  else if (lang.value === 'zh-TW') lang.value = 'en'
+  else lang.value = 'zh-CN'
+}
+
+function getText(cn, tw, en) {
+  if (lang.value === 'zh-CN') return cn
+  if (lang.value === 'zh-TW') return tw
+  return en
+}
+
+const tabs = computed(() => {
+  if (lang.value === 'zh-CN') return ['待缴费', '缴费记录']
+  if (lang.value === 'zh-TW') return ['待繳費', '繳費記錄']
+  return ['Pending', 'History']
+})
+
 const pendingBills = ref([
-  { id: 1, nameCn: '门诊诊金', nameEn: 'Consultation Fee', amount: 500, date: '2026-04-02', deptCn: '心血管内科', deptEn: 'Cardiology' },
-  { id: 2, nameCn: '检验费', nameEn: 'Lab Test Fee', amount: 380, date: '2026-04-02', deptCn: '检验科', deptEn: 'Laboratory' },
+  { id: 1, nameCn: '门诊诊金', nameTw: '門診診金', nameEn: 'Consultation Fee', amount: 500, date: '2026-04-02', deptCn: '心血管内科', deptTw: '心血管內科', deptEn: 'Cardiology' },
+  { id: 2, nameCn: '检验费', nameTw: '檢驗費', nameEn: 'Lab Test Fee', amount: 380, date: '2026-04-02', deptCn: '检验科', deptTw: '檢驗科', deptEn: 'Laboratory' },
 ])
+
 const history = [
-  { id: 1, nameCn: '门诊诊金', nameEn: 'Consultation Fee', amount: 400, date: '2026-03-25', method: '微信支付' },
-  { id: 2, nameCn: '体检套餐', nameEn: 'Health Check Package', amount: 3800, date: '2026-02-15', method: '商保直付' },
+  { id: 1, nameCn: '门诊诊金', nameTw: '門診診金', nameEn: 'Consultation Fee', amount: 400, date: '2026-03-25', method: '微信支付' },
+  { id: 2, nameCn: '体检套餐', nameTw: '體檢套餐', nameEn: 'Health Check Package', amount: 3800, date: '2026-02-15', method: '商保直付' },
 ]
+
 function doPay(b) {
   paidAmount.value = b.amount
   pendingBills.value = pendingBills.value.filter(x => x.id !== b.id)

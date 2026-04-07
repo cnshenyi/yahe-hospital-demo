@@ -17,7 +17,7 @@
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
       <span class="nav-title">国际医疗中心</span>
-      <div class="nav-lang" @click="toggleLang">{{ lang === 'zh' ? 'EN' : '中' }}</div>
+      <div class="nav-lang" @click="toggleLang">{{ lang === 'zh-CN' ? '简' : lang === 'zh-TW' ? '繁' : 'EN' }}</div>
     </div>
 
     <!-- Hero -->
@@ -31,13 +31,13 @@
             <span class="hero-brand-cn">雅和医疗中心</span>
           </div>
         </div>
-        <p class="hero-sub">{{ lang === 'zh' ? '中山大学附属第六医院' : 'The Sixth Affiliated Hospital, Sun Yat-sen University' }}</p>
+        <p class="hero-sub">{{ getText('中山大学附属第六医院', '中山大學附屬第六醫院', 'The Sixth Affiliated Hospital, Sun Yat-sen University') }}</p>
       </div>
     </div>
 
     <!-- Select Cards -->
     <div class="select-section">
-      <p class="select-hint">{{ lang === 'zh' ? '请选择就诊类型' : 'Please select service type' }}</p>
+      <p class="select-hint">{{ getText('请选择就诊类型', '請選擇就診類型', 'Please select service type') }}</p>
       <div class="select-cards">
         <div class="select-card" @click="$emit('navigate', 'yahe-home')">
           <div class="card-icon-wrap">
@@ -48,8 +48,8 @@
             </svg>
           </div>
           <div class="card-text">
-            <strong>{{ lang === 'zh' ? '国际医疗部' : 'International Medical Dept.' }}</strong>
-            <span>{{ lang === 'zh' ? '高端国际标准医疗服务' : 'Premium international standard care' }}</span>
+            <strong>{{ getText('国际医疗部', '國際醫療部', 'International Medical Dept.') }}</strong>
+            <span>{{ getText('高端国际标准医疗服务', '高端國際標準醫療服務', 'Premium international standard care') }}</span>
           </div>
           <svg class="card-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#D6AE6C" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
         </div>
@@ -61,8 +61,8 @@
             </svg>
           </div>
           <div class="card-text">
-            <strong>{{ lang === 'zh' ? '特需医疗中心' : 'Special Needs Medical Center' }}</strong>
-            <span>{{ lang === 'zh' ? '专属特需诊疗服务' : 'Exclusive specialized care services' }}</span>
+            <strong>{{ getText('特需医疗中心', '特需醫療中心', 'Special Needs Medical Center') }}</strong>
+            <span>{{ getText('专属特需诊疗服务', '專屬特需診療服務', 'Exclusive specialized care services') }}</span>
           </div>
           <svg class="card-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#D6AE6C" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
         </div>
@@ -72,15 +72,16 @@
     <!-- Brief Intro -->
     <div class="intro-card">
       <div class="intro-gold-line"></div>
-      <p class="intro-text">{{ lang === 'zh'
-        ? '雅和医疗中心成立于2009年，特约专家200余人，提供门急诊、住院、高端体检及医疗咨询等服务，拥有丰富的涉外医疗经验。'
-        : 'Established in 2009, Graceland Medical Center has over 200 top specialists providing outpatient, inpatient, premium health check and medical consultation services.' }}</p>
+      <p class="intro-text">{{ getText(
+        '雅和医疗中心成立于2009年，特约专家200余人，提供门急诊、住院、高端体检及医疗咨询等服务，拥有丰富的涉外医疗经验。',
+        '雅和醫療中心成立於2009年，特約專家200餘人，提供門急診、住院、高端體檢及醫療諮詢等服務，擁有豐富的涉外醫療經驗。',
+        'Established in 2009, Graceland Medical Center has over 200 top specialists providing outpatient, inpatient, premium health check and medical consultation services.') }}</p>
       <div class="intro-stats">
-        <div class="stat-item"><span class="stat-num">200+</span><span class="stat-label">{{ lang === 'zh' ? '特约专家' : 'Specialists' }}</span></div>
+        <div class="stat-item"><span class="stat-num">200+</span><span class="stat-label">{{ getText('特约专家', '特約專家', 'Specialists') }}</span></div>
         <div class="stat-divider"></div>
-        <div class="stat-item"><span class="stat-num">15+</span><span class="stat-label">{{ lang === 'zh' ? '年服务经验' : 'Years Experience' }}</span></div>
+        <div class="stat-item"><span class="stat-num">15+</span><span class="stat-label">{{ getText('年服务经验', '年服務經驗', 'Years Experience') }}</span></div>
         <div class="stat-divider"></div>
-        <div class="stat-item"><span class="stat-num">24</span><span class="stat-label">{{ lang === 'zh' ? '合作保险' : 'Insurance Partners' }}</span></div>
+        <div class="stat-item"><span class="stat-num">24</span><span class="stat-label">{{ getText('合作保险', '合作保險', 'Insurance Partners') }}</span></div>
       </div>
     </div>
 
@@ -91,8 +92,19 @@
 <script setup>
 import { ref } from 'vue'
 const emit = defineEmits(['navigate'])
-const lang = ref('zh')
-function toggleLang() { lang.value = lang.value === 'zh' ? 'en' : 'zh' }
+const lang = ref('zh-CN')
+
+function toggleLang() { 
+  if (lang.value === 'zh-CN') lang.value = 'zh-TW'
+  else if (lang.value === 'zh-TW') lang.value = 'en'
+  else lang.value = 'zh-CN'
+}
+
+function getText(cn, tw, en) {
+  if (lang.value === 'zh-CN') return cn
+  if (lang.value === 'zh-TW') return tw
+  return en
+}
 </script>
 
 <style scoped>

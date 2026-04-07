@@ -4,37 +4,37 @@
       <button class="back-btn" @click="$emit('navigate', 'yahe-home')">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#D6AE6C" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
-      <span>{{ lang === 'zh' ? '住院服务' : 'Inpatient Services' }}</span>
-      <div class="lang-toggle" @click="toggleLang">{{ lang === 'zh' ? 'EN' : '中' }}</div>
+      <span>{{ getText('住院服务', '住院服務', 'Inpatient Services') }}</span>
+      <div class="lang-toggle" @click="toggleLang">{{ lang === 'zh-CN' ? '简' : lang === 'zh-TW' ? '繁' : 'EN' }}</div>
     </div>
     <div class="page-body">
       <div class="room-types">
         <div class="room-card" v-for="r in rooms" :key="r.type">
           <div class="room-header">
-            <span class="room-type">{{ lang === 'zh' ? r.typeCn : r.typeEn }}</span>
+            <span class="room-type">{{ getText(r.typeCn, r.typeTw, r.typeEn) }}</span>
             <span class="room-price">{{ r.price }}</span>
           </div>
           <div class="room-features">
-            <span v-for="f in (lang === 'zh' ? r.featuresCn : r.featuresEn)" :key="f" class="feature-tag">{{ f }}</span>
+            <span v-for="(f, i) in (lang === 'zh-CN' ? r.featuresCn : lang === 'zh-TW' ? r.featuresTw : r.featuresEn)" :key="i" class="feature-tag">{{ f }}</span>
           </div>
         </div>
       </div>
-      <div class="section-title">{{ lang === 'zh' ? '住院服务流程' : 'Admission Process' }}</div>
+      <div class="section-title">{{ getText('住院服务流程', '住院服務流程', 'Admission Process') }}</div>
       <div class="process-list">
         <div class="process-item" v-for="(p, i) in process" :key="i">
           <div class="process-num">{{ i + 1 }}</div>
           <div class="process-text">
-            <span class="process-title">{{ lang === 'zh' ? p.cn : p.en }}</span>
-            <span class="process-desc">{{ lang === 'zh' ? p.descCn : p.descEn }}</span>
+            <span class="process-title">{{ getText(p.cn, p.tw, p.en) }}</span>
+            <span class="process-desc">{{ getText(p.descCn, p.descTw, p.descEn) }}</span>
           </div>
         </div>
       </div>
       <div class="info-card">
-        <div class="info-title">{{ lang === 'zh' ? '住院须知' : 'Admission Notes' }}</div>
-        <p>{{ lang === 'zh' ? '• 请携带有效身份证件及医保卡' : '• Bring valid ID and insurance card' }}</p>
-        <p>{{ lang === 'zh' ? '• 住院押金可通过微信/支付宝缴纳' : '• Deposit can be paid via WeChat/Alipay' }}</p>
-        <p>{{ lang === 'zh' ? '• 病房提供24小时护理服务' : '• 24-hour nursing service available' }}</p>
-        <p>{{ lang === 'zh' ? '• 支持商保直付结算' : '• Insurance direct billing supported' }}</p>
+        <div class="info-title">{{ getText('住院须知', '住院須知', 'Admission Notes') }}</div>
+        <p>{{ getText('• 请携带有效身份证件及医保卡', '• 請攜帶有效身份證件及醫保卡', '• Bring valid ID and insurance card') }}</p>
+        <p>{{ getText('• 住院押金可通过微信/支付宝缴纳', '• 住院押金可通過微信/支付寶繳納', '• Deposit can be paid via WeChat/Alipay') }}</p>
+        <p>{{ getText('• 病房提供24小时护理服务', '• 病房提供24小時護理服務', '• 24-hour nursing service available') }}</p>
+        <p>{{ getText('• 支持商保直付结算', '• 支持商保直付結算', '• Insurance direct billing supported') }}</p>
       </div>
       <div style="height: 30px"></div>
     </div>
@@ -43,18 +43,31 @@
 <script setup>
 import { ref } from 'vue'
 const emit = defineEmits(['navigate'])
-const lang = ref('zh')
-function toggleLang() { lang.value = lang.value === 'zh' ? 'en' : 'zh' }
+const lang = ref('zh-CN')
+
+function toggleLang() { 
+  if (lang.value === 'zh-CN') lang.value = 'zh-TW'
+  else if (lang.value === 'zh-TW') lang.value = 'en'
+  else lang.value = 'zh-CN'
+}
+
+function getText(cn, tw, en) {
+  if (lang.value === 'zh-CN') return cn
+  if (lang.value === 'zh-TW') return tw
+  return en
+}
+
 const rooms = [
-  { typeCn: '单人间', typeEn: 'Single Room', price: '¥1,200/天', featuresCn: ['独立卫浴', '沙发床', '冰箱', '电视'], featuresEn: ['Private bath', 'Sofa bed', 'Fridge', 'TV'] },
-  { typeCn: '双人间', typeEn: 'Double Room', price: '¥800/天', featuresCn: ['共享卫浴', '独立储物', '电视', '空调'], featuresEn: ['Shared bath', 'Private storage', 'TV', 'AC'] },
-  { typeCn: '套房', typeEn: 'Suite', price: '¥2,800/天', featuresCn: ['客厅', '独立卫浴', '商务服务', '专属管家'], featuresEn: ['Living room', 'Private bath', 'Business service', 'Butler'] },
+  { typeCn: '单人间', typeTw: '單人間', typeEn: 'Single Room', price: '¥1,200/天', featuresCn: ['独立卫浴', '沙发床', '冰箱', '电视'], featuresTw: ['獨立衛浴', '沙發床', '冰箱', '電視'], featuresEn: ['Private bath', 'Sofa bed', 'Fridge', 'TV'] },
+  { typeCn: '双人间', typeTw: '雙人間', typeEn: 'Double Room', price: '¥800/天', featuresCn: ['共享卫浴', '独立储物', '电视', '空调'], featuresTw: ['共享衛浴', '獨立儲物', '電視', '空調'], featuresEn: ['Shared bath', 'Private storage', 'TV', 'AC'] },
+  { typeCn: '套房', typeTw: '套房', typeEn: 'Suite', price: '¥2,800/天', featuresCn: ['客厅', '独立卫浴', '商务服务', '专属管家'], featuresTw: ['客廳', '獨立衛浴', '商務服務', '專屬管家'], featuresEn: ['Living room', 'Private bath', 'Business service', 'Butler'] },
 ]
+
 const process = [
-  { cn: '医生开具住院证', en: 'Doctor issues admission order', descCn: '门诊就诊后由医生评估开具', descEn: 'Issued by doctor after outpatient evaluation' },
-  { cn: '办理入院手续', en: 'Complete admission procedures', descCn: '携带证件至住院部办理', descEn: 'Bring ID to inpatient department' },
-  { cn: '缴纳住院押金', en: 'Pay admission deposit', descCn: '支持多种支付方式', descEn: 'Multiple payment methods accepted' },
-  { cn: '入住病房', en: 'Check into ward', descCn: '护士引导至指定病房', descEn: 'Nurse guides you to assigned ward' },
+  { cn: '医生开具住院证', tw: '醫生開具住院證', en: 'Doctor issues admission order', descCn: '门诊就诊后由医生评估开具', descTw: '門診就診後由醫生評估開具', descEn: 'Issued by doctor after outpatient evaluation' },
+  { cn: '办理入院手续', tw: '辦理入院手續', en: 'Complete admission procedures', descCn: '携带证件至住院部办理', descTw: '攜帶證件至住院部辦理', descEn: 'Bring ID to inpatient department' },
+  { cn: '缴纳住院押金', tw: '繳納住院押金', en: 'Pay admission deposit', descCn: '支持多种支付方式', descTw: '支持多種支付方式', descEn: 'Multiple payment methods accepted' },
+  { cn: '入住病房', tw: '入住病房', en: 'Check into ward', descCn: '护士引导至指定病房', descTw: '護士引導至指定病房', descEn: 'Nurse guides you to assigned ward' },
 ]
 </script>
 <style scoped>

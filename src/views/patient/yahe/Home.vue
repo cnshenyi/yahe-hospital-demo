@@ -24,9 +24,9 @@
             <div class="header-cn">雅和医疗中心</div>
           </div>
         </div>
-        <div class="lang-toggle" @click="toggleLang">{{ lang === 'zh' ? 'EN' : '中' }}</div>
+        <div class="lang-toggle" @click="toggleLang">{{ lang === 'zh-CN' ? '简' : lang === 'zh-TW' ? '繁' : 'EN' }}</div>
       </div>
-      <p class="header-sub">{{ lang === 'zh' ? '为您提供高品质国际标准医疗服务' : 'Providing premium international standard healthcare' }}</p>
+      <p class="header-sub">{{ getText('为您提供高品质国际标准医疗服务', '為您提供高品質國際標準醫療服務', 'Providing premium international standard healthcare') }}</p>
     </div>
 
     <!-- Scroll Content -->
@@ -38,14 +38,14 @@
           <div class="banner-slide">
             <img src="/images/yahe/hero-banner.png" class="banner-img" />
             <div class="banner-caption">
-              <span class="banner-tag">{{ lang === 'zh' ? '高端医疗' : 'Premium Care' }}</span>
-              <p>{{ lang === 'zh' ? '国际标准 · 专属服务' : 'International Standards · Exclusive Service' }}</p>
+              <span class="banner-tag">{{ getText('高端医疗', '高端醫療', 'Premium Care') }}</span>
+              <p>{{ getText('国际标准 · 专属服务', '國際標準 · 專屬服務', 'International Standards · Exclusive Service') }}</p>
             </div>
           </div>
           <div class="banner-slide banner-slide-ins" @click="$emit('navigate', 'yahe-insurance')" style="cursor:pointer">
             <div class="banner-ins-content">
-              <div class="ins-title">{{ lang === 'zh' ? '商保直付' : 'Insurance Direct Billing' }}</div>
-              <div class="ins-sub">{{ lang === 'zh' ? '24家合作保险，无忧就医' : '24 insurance partners, worry-free care' }}</div>
+              <div class="ins-title">{{ getText('商保直付', '商保直付', 'Insurance Direct Billing') }}</div>
+              <div class="ins-sub">{{ getText('24家合作保险，无忧就医', '24家合作保險，無憂就醫', '24 insurance partners, worry-free care') }}</div>
               <div class="ins-logos">
                 <span v-for="ins in insuranceShort" :key="ins" class="ins-tag">{{ ins }}</span>
               </div>
@@ -61,14 +61,14 @@
       <div class="func-section">
         <div class="section-header">
           <div class="gold-bar"></div>
-          <span>{{ lang === 'zh' ? '医疗服务' : 'Medical Services' }}</span>
+          <span>{{ getText('医疗服务', '醫療服務', 'Medical Services') }}</span>
         </div>
         <div class="func-grid">
           <div class="func-item" v-for="f in funcItems" :key="f.key" @click="$emit('navigate', f.route)">
             <div class="func-icon-wrap" :style="{ background: f.bg }">
               <div v-html="f.svg"></div>
             </div>
-            <span class="func-name">{{ lang === 'zh' ? f.nameCn : f.nameEn }}</span>
+            <span class="func-name">{{ getText(f.nameCn, f.nameTw, f.nameEn) }}</span>
           </div>
         </div>
       </div>
@@ -77,16 +77,16 @@
       <div class="expert-section">
         <div class="section-header">
           <div class="gold-bar"></div>
-          <span>{{ lang === 'zh' ? '专家团队' : 'Expert Team' }}</span>
-          <span class="see-all" @click="$emit('navigate', 'yahe-doctors')">{{ lang === 'zh' ? '查看全部' : 'View All' }} ›</span>
+          <span>{{ getText('专家团队', '專家團隊', 'Expert Team') }}</span>
+          <span class="see-all" @click="$emit('navigate', 'yahe-doctors')">{{ getText('查看全部', '查看全部', 'View All') }} ›</span>
         </div>
         <div class="expert-scroll">
           <div class="expert-card" v-for="d in doctors" :key="d.name" @click="$emit('navigate', 'yahe-doctors')">
             <img :src="d.img" class="expert-avatar" :alt="d.name" />
             <div class="expert-info">
               <span class="expert-name">{{ d.name }}</span>
-              <span class="expert-dept">{{ lang === 'zh' ? d.dept : d.deptEn }}</span>
-              <span class="expert-title">{{ lang === 'zh' ? d.title : d.titleEn }}</span>
+              <span class="expert-dept">{{ getText(d.dept, d.deptTw, d.deptEn) }}</span>
+              <span class="expert-title">{{ getText(d.title, d.titleTw, d.titleEn) }}</span>
             </div>
           </div>
         </div>
@@ -103,8 +103,8 @@
               </svg>
             </div>
             <div>
-              <div class="ins-banner-title">{{ lang === 'zh' ? '商保直付服务' : 'Insurance Direct Billing' }}</div>
-              <div class="ins-banner-sub">{{ lang === 'zh' ? '24家合作保险，直接结算' : '24 partners, direct settlement' }}</div>
+              <div class="ins-banner-title">{{ getText('商保直付服务', '商保直付服務', 'Insurance Direct Billing') }}</div>
+              <div class="ins-banner-sub">{{ getText('24家合作保险，直接结算', '24家合作保險，直接結算', '24 partners, direct settlement') }}</div>
             </div>
           </div>
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#D6AE6C" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
@@ -115,18 +115,18 @@
       <div class="contact-section">
         <div class="section-header">
           <div class="gold-bar"></div>
-          <span>{{ lang === 'zh' ? '联系我们' : 'Contact Us' }}</span>
+          <span>{{ getText('联系我们', '聯繫我們', 'Contact Us') }}</span>
         </div>
         <div class="contact-card" @click="$emit('navigate', 'yahe-guide')">
           <div class="contact-row">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#D6AE6C" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
-            <span class="contact-label">{{ lang === 'zh' ? '服务热线' : 'Hotline' }}</span>
+            <span class="contact-label">{{ getText('服务热线', '服務熱線', 'Hotline') }}</span>
             <span class="contact-value">020-38777688</span>
           </div>
           <div class="contact-row">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#D6AE6C" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span class="contact-label">{{ lang === 'zh' ? '服务时间' : 'Hours' }}</span>
-            <span class="contact-value">{{ lang === 'zh' ? '周一至周五 8:00-17:00' : 'Mon-Fri 8:00-17:00' }}</span>
+            <span class="contact-label">{{ getText('服务时间', '服務時間', 'Hours') }}</span>
+            <span class="contact-value">{{ getText('周一至周五 8:00-17:00', '週一至週五 8:00-17:00', 'Mon-Fri 8:00-17:00') }}</span>
           </div>
         </div>
       </div>
@@ -139,17 +139,27 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 const emit = defineEmits(['navigate'])
-const lang = ref('zh')
+const lang = ref('zh-CN')
 const bannerIdx = ref(0)
 let timer = null
 
-function toggleLang() { lang.value = lang.value === 'zh' ? 'en' : 'zh' }
+function toggleLang() { 
+  if (lang.value === 'zh-CN') lang.value = 'zh-TW'
+  else if (lang.value === 'zh-TW') lang.value = 'en'
+  else lang.value = 'zh-CN'
+}
+
+function getText(cn, tw, en) {
+  if (lang.value === 'zh-CN') return cn
+  if (lang.value === 'zh-TW') return tw
+  return en
+}
 
 const insuranceShort = ['平安', '友邦', '太平洋', '安联', '招商信诺', '泰康']
 
 const funcItems = [
   {
-    key: 'reg', nameCn: '门诊挂号', nameEn: 'Registration', route: 'yahe-register',
+    key: 'reg', nameCn: '门诊挂号', nameTw: '門診掛號', nameEn: 'Registration', route: 'yahe-register',
     bg: 'rgba(214,174,108,0.12)',
     svg: `<svg viewBox="0 0 36 36" width="32" height="32" fill="none">
       <rect x="6" y="4" width="24" height="28" rx="3" stroke="#D6AE6C" stroke-width="1.5"/>
@@ -159,7 +169,7 @@ const funcItems = [
     </svg>`
   },
   {
-    key: 'inpatient', nameCn: '住院服务', nameEn: 'Inpatient', route: 'yahe-inpatient',
+    key: 'inpatient', nameCn: '住院服务', nameTw: '住院服務', nameEn: 'Inpatient', route: 'yahe-inpatient',
     bg: 'rgba(214,174,108,0.12)',
     svg: `<svg viewBox="0 0 36 36" width="32" height="32" fill="none">
       <rect x="4" y="14" width="28" height="18" rx="3" stroke="#D6AE6C" stroke-width="1.5"/>
@@ -171,7 +181,7 @@ const funcItems = [
     </svg>`
   },
   {
-    key: 'guide', nameCn: '就医指南', nameEn: 'Med. Guide', route: 'yahe-guide',
+    key: 'guide', nameCn: '就医指南', nameTw: '就醫指南', nameEn: 'Med. Guide', route: 'yahe-guide',
     bg: 'rgba(214,174,108,0.12)',
     svg: `<svg viewBox="0 0 36 36" width="32" height="32" fill="none">
       <circle cx="18" cy="18" r="13" stroke="#D6AE6C" stroke-width="1.5"/>
@@ -180,7 +190,7 @@ const funcItems = [
     </svg>`
   },
   {
-    key: 'health', nameCn: '健康管理', nameEn: 'Health Mgmt', route: 'yahe-health',
+    key: 'health', nameCn: '健康管理', nameTw: '健康管理', nameEn: 'Health Mgmt', route: 'yahe-health',
     bg: 'rgba(214,174,108,0.12)',
     svg: `<svg viewBox="0 0 36 36" width="32" height="32" fill="none">
       <path d="M18 30s-12-8-12-17a8 8 0 0116 0 8 8 0 0116 0c0 9-12 17-12 17" stroke="#D6AE6C" stroke-width="1.5" stroke-linejoin="round" fill="rgba(214,174,108,0.1)"/>
@@ -188,7 +198,7 @@ const funcItems = [
     </svg>`
   },
   {
-    key: 'report', nameCn: '报告查询', nameEn: 'Reports', route: 'yahe-report',
+    key: 'report', nameCn: '报告查询', nameTw: '報告查詢', nameEn: 'Reports', route: 'yahe-report',
     bg: 'rgba(214,174,108,0.12)',
     svg: `<svg viewBox="0 0 36 36" width="32" height="32" fill="none">
       <rect x="6" y="4" width="24" height="28" rx="3" stroke="#D6AE6C" stroke-width="1.5"/>
@@ -198,7 +208,7 @@ const funcItems = [
     </svg>`
   },
   {
-    key: 'pay', nameCn: '快速缴费', nameEn: 'Quick Pay', route: 'yahe-pay',
+    key: 'pay', nameCn: '快速缴费', nameTw: '快速繳費', nameEn: 'Quick Pay', route: 'yahe-pay',
     bg: 'rgba(214,174,108,0.12)',
     svg: `<svg viewBox="0 0 36 36" width="32" height="32" fill="none">
       <rect x="4" y="8" width="28" height="20" rx="4" stroke="#D6AE6C" stroke-width="1.5"/>
@@ -211,11 +221,11 @@ const funcItems = [
 ]
 
 const doctors = [
-  { name: '汪建平', dept: '普通外科', deptEn: 'General Surgery', title: '教授 · 主任医师', titleEn: 'Professor · Chief Physician', img: '/images/yahe/doctors/wangjianping.jpg' },
-  { name: '任东林', dept: '肛肠外科', deptEn: 'Colorectal Surgery', title: '教授 · 主任医师', titleEn: 'Professor · Chief Physician', img: '/images/yahe/doctors/rendonglin.jpg' },
-  { name: '高羽', dept: '妇产科', deptEn: 'Obstetrics & Gynecology', title: '主任医师 · 博导', titleEn: 'Chief Physician · PhD Supervisor', img: '/images/yahe/doctors/gaoyu.jpg' },
-  { name: '黄建林', dept: '风湿免疫科', deptEn: 'Rheumatology', title: '教授 · 主任医师', titleEn: 'Professor · Chief Physician', img: '/images/yahe/doctors/huangjianlin.jpg' },
-  { name: '孟晓春', dept: '影像诊断科', deptEn: 'Diagnostic Imaging', title: '教授 · 主任医师', titleEn: 'Professor · Chief Physician', img: '/images/yahe/doctors/mengxiaochun.jpg' },
+  { name: '汪建平', dept: '普通外科', deptTw: '普通外科', deptEn: 'General Surgery', title: '教授 · 主任医师', titleTw: '教授 · 主任醫師', titleEn: 'Professor · Chief Physician', img: '/images/yahe/doctors/wangjianping.jpg' },
+  { name: '任东林', dept: '肛肠外科', deptTw: '肛腸外科', deptEn: 'Colorectal Surgery', title: '教授 · 主任医师', titleTw: '教授 · 主任醫師', titleEn: 'Professor · Chief Physician', img: '/images/yahe/doctors/rendonglin.jpg' },
+  { name: '高羽', dept: '妇产科', deptTw: '婦產科', deptEn: 'Obstetrics & Gynecology', title: '主任医师 · 博导', titleTw: '主任醫師 · 博導', titleEn: 'Chief Physician · PhD Supervisor', img: '/images/yahe/doctors/gaoyu.jpg' },
+  { name: '黄建林', dept: '风湿免疫科', deptTw: '風濕免疫科', deptEn: 'Rheumatology', title: '教授 · 主任医师', titleTw: '教授 · 主任醫師', titleEn: 'Professor · Chief Physician', img: '/images/yahe/doctors/huangjianlin.jpg' },
+  { name: '孟晓春', dept: '影像诊断科', deptTw: '影像診斷科', deptEn: 'Diagnostic Imaging', title: '教授 · 主任医师', titleTw: '教授 · 主任醫師', titleEn: 'Professor · Chief Physician', img: '/images/yahe/doctors/mengxiaochun.jpg' },
 ]
 onMounted(() => { timer = setInterval(() => { bannerIdx.value = (bannerIdx.value + 1) % 2 }, 4000) })
 onUnmounted(() => { if (timer) clearInterval(timer) })

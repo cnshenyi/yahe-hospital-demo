@@ -5,7 +5,7 @@
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#D6AE6C" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
       <span>{{ title }}</span>
-      <div class="lang-toggle" @click="toggleLang">{{ lang === 'zh' ? 'EN' : '中' }}</div>
+      <div class="lang-toggle" @click="toggleLang">{{ lang === 'zh-CN' ? '简' : lang === 'zh-TW' ? '繁' : 'EN' }}</div>
     </div>
     <div class="page-body">
       <slot></slot>
@@ -16,8 +16,13 @@
 import { ref } from 'vue'
 const props = defineProps({ title: String, back: { type: String, default: 'yahe-home' } })
 const emit = defineEmits(['navigate'])
-const lang = ref('zh')
-function toggleLang() { lang.value = lang.value === 'zh' ? 'en' : 'zh' }
+const lang = ref('zh-CN')
+
+function toggleLang() { 
+  if (lang.value === 'zh-CN') lang.value = 'zh-TW'
+  else if (lang.value === 'zh-TW') lang.value = 'en'
+  else lang.value = 'zh-CN'
+}
 </script>
 <style scoped>
 .yahe-page { min-height: 100%; background: #0D0D0D; color: #fff; font-family: -apple-system, 'PingFang SC', sans-serif; }

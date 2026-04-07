@@ -4,15 +4,15 @@
       <button class="back-btn" @click="$emit('navigate', 'yahe-home')">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#D6AE6C" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
-      <span>{{ lang === 'zh' ? '专家团队' : 'Expert Team' }}</span>
-      <div class="lang-toggle" @click="toggleLang">{{ lang === 'zh' ? 'EN' : '中' }}</div>
+      <span>{{ getText('专家团队', '專家團隊', 'Expert Team') }}</span>
+      <div class="lang-toggle" @click="toggleLang">{{ lang === 'zh-CN' ? '简' : lang === 'zh-TW' ? '繁' : 'EN' }}</div>
     </div>
 
     <div class="page-body">
       <!-- Search bar -->
       <div class="search-bar">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="rgba(214,174,108,0.5)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        <input v-model="searchQuery" :placeholder="lang === 'zh' ? '搜索医生姓名或科室' : 'Search doctor or department'" class="search-input" />
+        <input v-model="searchQuery" :placeholder="getText('搜索医生姓名或科室', '搜索醫生姓名或科室', 'Search doctor or department')" class="search-input" />
       </div>
 
       <!-- Dept filter -->
@@ -20,7 +20,7 @@
         <span v-for="d in deptFilters" :key="d.id"
           class="dept-chip" :class="{ active: activeDept === d.id }"
           @click="activeDept = d.id">
-          {{ lang === 'zh' ? d.cn : d.en }}
+          {{ getText(d.cn, d.tw, d.en) }}
         </span>
       </div>
 
@@ -39,17 +39,17 @@
           <div class="doc-info">
             <div class="doc-name-row">
               <span class="doc-name">{{ doc.name }}</span>
-              <span class="doc-title-badge">{{ lang === 'zh' ? doc.titleCn : doc.titleEn }}</span>
+              <span class="doc-title-badge">{{ getText(doc.titleCn, doc.titleTw, doc.titleEn) }}</span>
             </div>
-            <span class="doc-dept">{{ lang === 'zh' ? doc.deptCn : doc.deptEn }}</span>
-            <p class="doc-specialty">{{ lang === 'zh' ? doc.specialtyCn : doc.specialtyEn }}</p>
+            <span class="doc-dept">{{ getText(doc.deptCn, doc.deptTw, doc.deptEn) }}</span>
+            <p class="doc-specialty">{{ getText(doc.specialtyCn, doc.specialtyTw, doc.specialtyEn) }}</p>
           </div>
           <div class="book-btn-sm" @click.stop="$emit('navigate', 'yahe-register')">
-            {{ lang === 'zh' ? '预约' : 'Book' }}
+            {{ getText('预约', '預約', 'Book') }}
           </div>
         </div>
         <div class="empty-tip" v-if="filteredDoctors.length === 0">
-          <p>{{ lang === 'zh' ? '未找到相关医生' : 'No doctors found' }}</p>
+          <p>{{ getText('未找到相关医生', '未找到相關醫生', 'No doctors found') }}</p>
         </div>
       </div>
 
@@ -57,7 +57,7 @@
       <div v-else class="doctor-detail">
         <button class="back-sub" @click="selectedDoctor = null">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#D6AE6C" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-          {{ lang === 'zh' ? '返回列表' : 'Back' }}
+          {{ getText('返回列表', '返回列表', 'Back') }}
         </button>
         <div class="detail-hero">
           <div class="detail-avatar-wrap">
@@ -71,20 +71,20 @@
           </div>
           <div class="detail-basic">
             <h2>{{ selectedDoctor.name }}</h2>
-            <span class="detail-title">{{ lang === 'zh' ? selectedDoctor.titleCn : selectedDoctor.titleEn }}</span>
-            <span class="detail-dept">{{ lang === 'zh' ? selectedDoctor.deptCn : selectedDoctor.deptEn }}</span>
+            <span class="detail-title">{{ getText(selectedDoctor.titleCn, selectedDoctor.titleTw, selectedDoctor.titleEn) }}</span>
+            <span class="detail-dept">{{ getText(selectedDoctor.deptCn, selectedDoctor.deptTw, selectedDoctor.deptEn) }}</span>
           </div>
         </div>
         <div class="detail-section">
-          <div class="detail-section-title">{{ lang === 'zh' ? '擅长领域' : 'Specialties' }}</div>
-          <p>{{ lang === 'zh' ? selectedDoctor.specialtyCn : selectedDoctor.specialtyEn }}</p>
+          <div class="detail-section-title">{{ getText('擅长领域', '擅長領域', 'Specialties') }}</div>
+          <p>{{ getText(selectedDoctor.specialtyCn, selectedDoctor.specialtyTw, selectedDoctor.specialtyEn) }}</p>
         </div>
         <div class="detail-section">
-          <div class="detail-section-title">{{ lang === 'zh' ? '个人简介' : 'Biography' }}</div>
-          <p>{{ lang === 'zh' ? selectedDoctor.bioCn : selectedDoctor.bioEn }}</p>
+          <div class="detail-section-title">{{ getText('个人简介', '個人簡介', 'Biography') }}</div>
+          <p>{{ getText(selectedDoctor.bioCn, selectedDoctor.bioTw, selectedDoctor.bioEn) }}</p>
         </div>
         <button class="book-full-btn" @click="$emit('navigate', 'yahe-register')">
-          {{ lang === 'zh' ? '立即预约挂号' : 'Book Appointment' }}
+          {{ getText('立即预约挂号', '立即預約掛號', 'Book Appointment') }}
         </button>
       </div>
 
@@ -96,91 +96,118 @@
 <script setup>
 import { ref, computed } from 'vue'
 const emit = defineEmits(['navigate'])
-const lang = ref('zh')
+const lang = ref('zh-CN')
 const searchQuery = ref('')
 const activeDept = ref('all')
 const selectedDoctor = ref(null)
-function toggleLang() { lang.value = lang.value === 'zh' ? 'en' : 'zh' }
+
+function toggleLang() { 
+  if (lang.value === 'zh-CN') lang.value = 'zh-TW'
+  else if (lang.value === 'zh-TW') lang.value = 'en'
+  else lang.value = 'zh-CN'
+}
+
+function getText(cn, tw, en) {
+  if (lang.value === 'zh-CN') return cn
+  if (lang.value === 'zh-TW') return tw
+  return en
+}
 
 const deptFilters = [
-  { id: 'all', cn: '全部', en: 'All' },
-  { id: 'surgery', cn: '外科', en: 'Surgery' },
-  { id: 'internal', cn: '内科', en: 'Internal' },
-  { id: 'gynecology', cn: '妇产科', en: 'Gynecology' },
-  { id: 'imaging', cn: '影像', en: 'Imaging' },
+  { id: 'all', cn: '全部', tw: '全部', en: 'All' },
+  { id: 'surgery', cn: '外科', tw: '外科', en: 'Surgery' },
+  { id: 'internal', cn: '内科', tw: '內科', en: 'Internal' },
+  { id: 'gynecology', cn: '妇产科', tw: '婦產科', en: 'Gynecology' },
+  { id: 'imaging', cn: '影像', tw: '影像', en: 'Imaging' },
 ]
 
 const doctors = [
   {
-    name: '汪建平', titleCn: '教授 · 主任医师', titleEn: 'Professor · Chief Physician',
-    deptCn: '普通外科', deptEn: 'General Surgery', dept: 'surgery',
+    name: '汪建平', titleCn: '教授 · 主任医师', titleTw: '教授 · 主任醫師', titleEn: 'Professor · Chief Physician',
+    deptCn: '普通外科', deptTw: '普通外科', deptEn: 'General Surgery', dept: 'surgery',
     avatar: '/images/yahe/doctors/wangjianping.jpg',
     specialtyCn: '从事普通外科临床诊治40余年，擅长结直肠肿瘤、胃肠道疾病的外科治疗',
+    specialtyTw: '從事普通外科臨床診治40餘年，擅長結直腸腫瘤、胃腸道疾病的外科治療',
     specialtyEn: '40+ years in general surgery, specializing in colorectal tumors and gastrointestinal diseases',
     bioCn: '医学博士，教授，主任医师，博士研究生导师。中山大学附属第六医院结直肠肛门外科学科带头人，国内结直肠外科领域权威专家。',
+    bioTw: '醫學博士，教授，主任醫師，博士研究生導師。中山大學附屬第六醫院結直腸肛門外科學科帶頭人，國內結直腸外科領域權威專家。',
     bioEn: 'MD, Professor, Chief Physician, PhD Supervisor. Head of Colorectal Surgery at the Sixth Affiliated Hospital of Sun Yat-sen University.',
   },
   {
-    name: '任东林', titleCn: '教授 · 主任医师', titleEn: 'Professor · Chief Physician',
-    deptCn: '肛肠外科', deptEn: 'Colorectal Surgery', dept: 'surgery',
+    name: '任东林', titleCn: '教授 · 主任医师', titleTw: '教授 · 主任醫師', titleEn: 'Professor · Chief Physician',
+    deptCn: '肛肠外科', deptTw: '肛腸外科', deptEn: 'Colorectal Surgery', dept: 'surgery',
     avatar: '/images/yahe/doctors/rendonglin.jpg',
     specialtyCn: '从事肛肠外科临床和教学工作30余年，擅长复杂性肛瘘、痔疮、盆底疾病的外科治疗',
+    specialtyTw: '從事肛腸外科臨床和教學工作30餘年，擅長複雜性肛瘺、痔瘡、盆底疾病的外科治療',
     specialtyEn: '30+ years in colorectal surgery, specializing in complex anal fistula, hemorrhoids, and pelvic floor disorders',
     bioCn: '外科主任、肛肠外科主任、盆底及肛门外科主任。医学博士，教授，主任医师，博士生导师。',
+    bioTw: '外科主任、肛腸外科主任、盆底及肛門外科主任。醫學博士，教授，主任醫師，博士生導師。',
     bioEn: 'Director of Surgery, Colorectal Surgery, and Pelvic Floor & Anal Surgery. MD, Professor, Chief Physician, PhD Supervisor.',
   },
   {
-    name: '万云乐', titleCn: '主任医师', titleEn: 'Chief Physician',
-    deptCn: '普外科', deptEn: 'General Surgery', dept: 'surgery',
+    name: '万云乐', titleCn: '主任医师', titleTw: '主任醫師', titleEn: 'Chief Physician',
+    deptCn: '普外科', deptTw: '普外科', deptEn: 'General Surgery', dept: 'surgery',
     avatar: '/images/yahe/doctors/wanyunle.jpg',
     specialtyCn: '对肝胆胰脾、胃肠、甲状腺和乳腺等普外科疾病有丰富的临床经验',
+    specialtyTw: '對肝膽胰脾、胃腸、甲狀腺和乳腺等普外科疾病有豐富的臨床經驗',
     specialtyEn: 'Extensive experience in hepatobiliary, gastrointestinal, thyroid and breast surgery',
     bioCn: '医学博士，主任医师，博士生导师。擅长肝胆胰脾、胃肠、甲状腺和乳腺等普外科疾病的诊治。',
+    bioTw: '醫學博士，主任醫師，博士生導師。擅長肝膽胰脾、胃腸、甲狀腺和乳腺等普外科疾病的診治。',
     bioEn: 'MD, Chief Physician, PhD Supervisor. Specializes in hepatobiliary, gastrointestinal, thyroid and breast surgery.',
   },
   {
-    name: '高羽', titleCn: '主任医师 · 博导', titleEn: 'Chief Physician · PhD Supervisor',
-    deptCn: '妇产科', deptEn: 'Obstetrics & Gynecology', dept: 'gynecology',
+    name: '高羽', titleCn: '主任医师 · 博导', titleTw: '主任醫師 · 博導', titleEn: 'Chief Physician · PhD Supervisor',
+    deptCn: '妇产科', deptTw: '婦產科', deptEn: 'Obstetrics & Gynecology', dept: 'gynecology',
     avatar: '/images/yahe/doctors/gaoyu.jpg',
     specialtyCn: '从事妇产科专业临床工作20年，在孕产期保健、妇科肿瘤、不孕不育等方面有丰富经验',
+    specialtyTw: '從事婦產科專業臨床工作20年，在孕產期保健、婦科腫瘤、不孕不育等方面有豐富經驗',
     specialtyEn: '20 years in obstetrics & gynecology, specializing in prenatal care, gynecological tumors, and infertility',
     bioCn: '医学博士，主任医师，博士生导师。从事妇产科专业临床工作20年，具有丰富的临床经验。',
+    bioTw: '醫學博士，主任醫師，博士生導師。從事婦產科專業臨床工作20年，具有豐富的臨床經驗。',
     bioEn: 'MD, Chief Physician, PhD Supervisor. 20 years of clinical experience in obstetrics and gynecology.',
   },
   {
-    name: '孟晓春', titleCn: '教授 · 主任医师', titleEn: 'Professor · Chief Physician',
-    deptCn: '影像诊断科', deptEn: 'Diagnostic Imaging', dept: 'imaging',
+    name: '孟晓春', titleCn: '教授 · 主任医师', titleTw: '教授 · 主任醫師', titleEn: 'Professor · Chief Physician',
+    deptCn: '影像诊断科', deptTw: '影像診斷科', deptEn: 'Diagnostic Imaging', dept: 'imaging',
     avatar: '/images/yahe/doctors/mengxiaochun.jpg',
     specialtyCn: '从医近30年，以腹部疾病影像诊断与介入治疗为主要研究方向',
+    specialtyTw: '從醫近30年，以腹部疾病影像診斷與介入治療為主要研究方向',
     specialtyEn: '30 years in diagnostic imaging, focusing on abdominal disease imaging and interventional therapy',
     bioCn: '医学博士，主任医师，博士/硕士研究生导师。从医近30年，以腹部疾病影像诊断与介入治疗为主要研究方向。',
+    bioTw: '醫學博士，主任醫師，博士/碩士研究生導師。從醫近30年，以腹部疾病影像診斷與介入治療為主要研究方向。',
     bioEn: 'MD, Chief Physician, PhD/Master Supervisor. Nearly 30 years of experience in abdominal imaging and interventional therapy.',
   },
   {
-    name: '郭学峰', titleCn: '主任医师', titleEn: 'Chief Physician',
-    deptCn: '胃肠外科', deptEn: 'Gastrointestinal Surgery', dept: 'surgery',
+    name: '郭学峰', titleCn: '主任医师', titleTw: '主任醫師', titleEn: 'Chief Physician',
+    deptCn: '胃肠外科', deptTw: '胃腸外科', deptEn: 'Gastrointestinal Surgery', dept: 'surgery',
     avatar: '/images/yahe/doctors/guoxuefeng.jpg',
     specialtyCn: '主要从事胃肠外科和内镜外科的临床工作，擅长胃肠道肿瘤的微创手术治疗',
+    specialtyTw: '主要從事胃腸外科和內鏡外科的臨床工作，擅長胃腸道腫瘤的微創手術治療',
     specialtyEn: 'Specializes in gastrointestinal and endoscopic surgery, minimally invasive treatment of GI tumors',
     bioCn: '主任医师，医学博士，硕士生导师。主要从事胃肠外科和内镜外科的临床工作。',
+    bioTw: '主任醫師，醫學博士，碩士生導師。主要從事胃腸外科和內鏡外科的臨床工作。',
     bioEn: 'Chief Physician, MD, Master Supervisor. Specializes in gastrointestinal and endoscopic surgery.',
   },
   {
-    name: '黄建林', titleCn: '教授 · 主任医师', titleEn: 'Professor · Chief Physician',
-    deptCn: '风湿免疫科', deptEn: 'Rheumatology & Immunology', dept: 'internal',
+    name: '黄建林', titleCn: '教授 · 主任医师', titleTw: '教授 · 主任醫師', titleEn: 'Professor · Chief Physician',
+    deptCn: '风湿免疫科', deptTw: '風濕免疫科', deptEn: 'Rheumatology & Immunology', dept: 'internal',
     avatar: '/images/yahe/doctors/huangjianlin.jpg',
     specialtyCn: '擅长类风湿关节炎、系统性红斑狼疮、强直性脊柱炎等风湿免疫疾病的诊治',
+    specialtyTw: '擅長類風濕關節炎、系統性紅斑狼瘡、強直性脊柱炎等風濕免疫疾病的診治',
     specialtyEn: 'Specializes in rheumatoid arthritis, systemic lupus erythematosus, ankylosing spondylitis',
     bioCn: '教授、主任医师，医学博士，博士研究生导师。风湿免疫科学科带头人。',
+    bioTw: '教授、主任醫師，醫學博士，博士研究生導師。風濕免疫科學科帶頭人。',
     bioEn: 'Professor, Chief Physician, MD, PhD Supervisor. Head of Rheumatology & Immunology.',
   },
   {
-    name: '廖洪映', titleCn: '教授 · 主任医师', titleEn: 'Professor · Chief Physician',
-    deptCn: '胸外科', deptEn: 'Thoracic Surgery', dept: 'surgery',
+    name: '廖洪映', titleCn: '教授 · 主任医师', titleTw: '教授 · 主任醫師', titleEn: 'Professor · Chief Physician',
+    deptCn: '胸外科', deptTw: '胸外科', deptEn: 'Thoracic Surgery', dept: 'surgery',
     avatar: '/images/yahe/doctors/liaohongying.jpg',
     specialtyCn: '擅长胸部各种良恶性肿瘤如肺癌、食管癌等的外科治疗，尤其是微创胸腔镜手术',
+    specialtyTw: '擅長胸部各種良惡性腫瘤如肺癌、食管癌等的外科治療，尤其是微創胸腔鏡手術',
     specialtyEn: 'Specializes in thoracic tumors including lung cancer and esophageal cancer, especially VATS',
     bioCn: '医学博士，主任医师，教授，博士生导师。擅长胸部良恶性肿瘤的外科治疗。',
+    bioTw: '醫學博士，主任醫師，教授，博士生導師。擅長胸部良惡性腫瘤的外科治療。',
     bioEn: 'MD, Chief Physician, Professor, PhD Supervisor. Expert in thoracic tumor surgery.',
   },
   {

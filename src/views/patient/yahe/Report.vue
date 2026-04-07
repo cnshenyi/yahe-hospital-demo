@@ -4,8 +4,8 @@
       <button class="back-btn" @click="$emit('navigate', 'yahe-home')">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#D6AE6C" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
-      <span>{{ lang === 'zh' ? '报告查询' : 'Reports' }}</span>
-      <div class="lang-toggle" @click="toggleLang">{{ lang === 'zh' ? 'EN' : '中' }}</div>
+      <span>{{ getText('报告查询', '報告查詢', 'Reports') }}</span>
+      <div class="lang-toggle" @click="toggleLang">{{ lang === 'zh-CN' ? '简' : lang === 'zh-TW' ? '繁' : 'EN' }}</div>
     </div>
     <div class="page-body">
       <div class="report-tabs">
@@ -17,15 +17,15 @@
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           </div>
           <div class="report-info">
-            <span class="report-name">{{ lang === 'zh' ? r.nameCn : r.nameEn }}</span>
-            <span class="report-date">{{ r.date }} · {{ lang === 'zh' ? r.deptCn : r.deptEn }}</span>
+            <span class="report-name">{{ getText(r.nameCn, r.nameTw, r.nameEn) }}</span>
+            <span class="report-date">{{ r.date }} · {{ getText(r.deptCn, r.deptTw, r.deptEn) }}</span>
           </div>
-          <span class="report-status" :class="r.status">{{ lang === 'zh' ? (r.status === 'ready' ? '已出报告' : '处理中') : (r.status === 'ready' ? 'Ready' : 'Processing') }}</span>
+          <span class="report-status" :class="r.status">{{ r.status === 'ready' ? getText('已出报告', '已出報告', 'Ready') : getText('处理中', '處理中', 'Processing') }}</span>
         </div>
       </div>
       <div class="empty-tip" v-if="filteredReports.length === 0">
         <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke="rgba(214,174,108,0.3)" stroke-width="1.5"><rect x="12" y="8" width="40" height="48" rx="4"/><path d="M20 20h24M20 28h24M20 36h16"/></svg>
-        <p>{{ lang === 'zh' ? '暂无报告' : 'No reports yet' }}</p>
+        <p>{{ getText('暂无报告', '暫無報告', 'No reports yet') }}</p>
       </div>
     </div>
   </div>
@@ -33,16 +33,33 @@
 <script setup>
 import { ref, computed } from 'vue'
 const emit = defineEmits(['navigate'])
-const lang = ref('zh')
+const lang = ref('zh-CN')
 const activeTab = ref(0)
-function toggleLang() { lang.value = lang.value === 'zh' ? 'en' : 'zh' }
-const tabs = computed(() => lang.value === 'zh' ? ['全部', '检验', '影像', '体检'] : ['All', 'Lab', 'Imaging', 'Health Check'])
+
+function toggleLang() { 
+  if (lang.value === 'zh-CN') lang.value = 'zh-TW'
+  else if (lang.value === 'zh-TW') lang.value = 'en'
+  else lang.value = 'zh-CN'
+}
+
+function getText(cn, tw, en) {
+  if (lang.value === 'zh-CN') return cn
+  if (lang.value === 'zh-TW') return tw
+  return en
+}
+
+const tabs = computed(() => {
+  if (lang.value === 'zh-CN') return ['全部', '检验', '影像', '体检']
+  if (lang.value === 'zh-TW') return ['全部', '檢驗', '影像', '體檢']
+  return ['All', 'Lab', 'Imaging', 'Health Check']
+})
+
 const reports = [
-  { id: 1, nameCn: '血常规检验报告', nameEn: 'Complete Blood Count', date: '2026-03-28', deptCn: '检验科', deptEn: 'Laboratory', type: 'lab', status: 'ready', tab: 1 },
-  { id: 2, nameCn: '胸部CT报告', nameEn: 'Chest CT Report', date: '2026-03-25', deptCn: '放射科', deptEn: 'Radiology', type: 'imaging', status: 'ready', tab: 2 },
-  { id: 3, nameCn: '心脏彩超报告', nameEn: 'Cardiac Ultrasound', date: '2026-03-20', deptCn: '超声科', deptEn: 'Ultrasound', type: 'imaging', status: 'ready', tab: 2 },
-  { id: 4, nameCn: '年度体检报告', nameEn: 'Annual Health Check', date: '2026-02-15', deptCn: '体检中心', deptEn: 'Health Check Center', type: 'health', status: 'ready', tab: 3 },
-  { id: 5, nameCn: '肿瘤标志物检测', nameEn: 'Tumor Marker Panel', date: '2026-04-01', deptCn: '检验科', deptEn: 'Laboratory', type: 'lab', status: 'processing', tab: 1 },
+  { id: 1, nameCn: '血常规检验报告', nameTw: '血常規檢驗報告', nameEn: 'Complete Blood Count', date: '2026-03-28', deptCn: '检验科', deptTw: '檢驗科', deptEn: 'Laboratory', type: 'lab', status: 'ready', tab: 1 },
+  { id: 2, nameCn: '胸部CT报告', nameTw: '胸部CT報告', nameEn: 'Chest CT Report', date: '2026-03-25', deptCn: '放射科', deptTw: '放射科', deptEn: 'Radiology', type: 'imaging', status: 'ready', tab: 2 },
+  { id: 3, nameCn: '心脏彩超报告', nameTw: '心臟彩超報告', nameEn: 'Cardiac Ultrasound', date: '2026-03-20', deptCn: '超声科', deptTw: '超聲科', deptEn: 'Ultrasound', type: 'imaging', status: 'ready', tab: 2 },
+  { id: 4, nameCn: '年度体检报告', nameTw: '年度體檢報告', nameEn: 'Annual Health Check', date: '2026-02-15', deptCn: '体检中心', deptTw: '體檢中心', deptEn: 'Health Check Center', type: 'health', status: 'ready', tab: 3 },
+  { id: 5, nameCn: '肿瘤标志物检测', nameTw: '腫瘤標誌物檢測', nameEn: 'Tumor Marker Panel', date: '2026-04-01', deptCn: '检验科', deptTw: '檢驗科', deptEn: 'Laboratory', type: 'lab', status: 'processing', tab: 1 },
 ]
 const filteredReports = computed(() => activeTab.value === 0 ? reports : reports.filter(r => r.tab === activeTab.value))
 </script>
